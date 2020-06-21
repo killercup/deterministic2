@@ -1,7 +1,7 @@
 @import "reset";
 @import "normalize-opentype";
 
-body {
+html {
   @include sans;
   font-size: 18px;
   color: $color-text;
