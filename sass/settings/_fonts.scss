@@ -1,0 +1,12 @@
+@mixin serif {
+  font-family: "Alegreya", serif;
+}
+
+@mixin sans {
+  font-family: "Alegreya Sans", sans-serif;
+  font-weight: 300;
+}
+
+@mixin slab {
+  font-family: "Bitter", serif;
+}

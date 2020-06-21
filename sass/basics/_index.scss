@@ -1,0 +1,18 @@
+@import "reset";
+@import "normalize-opentype";
+
+body {
+  @include sans;
+  font-size: 18px;
+  color: $color-text;
+}
+
+a {
+  color: $color-text-secondary;
+  text-decoration: underline;
+
+  &:hover {
+    color: $color-text;
+    background-color: $color-mark;
+  }
+}

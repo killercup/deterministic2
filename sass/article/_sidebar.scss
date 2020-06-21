@@ -1,0 +1,58 @@
+nav.sidebar {
+  @include sans;
+  line-height: $article-vertical-rhythm * 1rem;
+
+  @media screen and (max-width: 79.999em) {
+    padding: 0 1rem;
+
+    @media screen and (min-width: 30rem) {
+      display: flex;
+
+      section {
+        max-width: 50%;
+
+        &:first-child {
+          margin-right: 1em;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 80rem) {
+    section + section {
+      margin-top: 1rem;
+    }
+  }
+
+  header {
+    .label {
+      display: block;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      line-height: $article-vertical-rhythm * 1rem;
+    }
+
+    .title {
+      display: block;
+      font-weight: 700;
+      line-height: $article-vertical-rhythm * 1rem;
+      margin-top: -1/3 * $article-vertical-rhythm * 1rem;
+      margin-bottom: 1/3 * $article-vertical-rhythm * 1rem;
+    }
+  }
+
+  ol {
+    padding-left: 0;
+    list-style-position: inside;
+
+    @media screen and (min-width: 80em) {
+      list-style-position: outside;
+    }
+
+    li {
+      // disable onum (Oldstyle Figures)
+      font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 1,
+        "onum" 0, "lnum" 1, "dlig" 0, "sups" 0;
+    }
+  }
+}

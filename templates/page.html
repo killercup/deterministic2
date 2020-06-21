@@ -1,0 +1,125 @@
+{% extends "_base.html" %}
+
+{% block body_class %}page-post{% endblock body_class %}
+
+{% block main %}
+<article>
+  <header>
+    <h1>{{ page.title }}</h1>
+    {% if page.abstract %}
+    <p class="abstract">
+      {{ page.abstract }}
+    </p>
+    {% endif %}
+    <p class="meta">
+      Written by
+      <a href="/">{{ config.extra.author }}</a>
+      on {{ page.date | date(format="%Y-%m-%d") }}.
+      Published in
+      {{ page.taxonomies.tags | join(sep=", ") }}.
+    </p>
+  </header>
+  <nav class="sidebar">
+    {% set post_style = page.taxonomies.style | first %}
+    {% set style = get_taxonomy(kind="style") | get(key="items") | filter(attribute="name", value=post_style) | first %}
+    {% set other_posts = style.pages %}
+    {% if other_posts | length > 0 %}
+    <section class="series">
+      <header>
+        <span class="label">In the style of</span>
+        <span class="title">{{ post_style | title }}s</span>
+      </header>
+      <ol>
+      {% for post in other_posts %}
+        <li>
+          {% if post == page %}
+          <span class="current">{{post.title}}</span> <em>(this post)</em>
+          {% else %}
+          <a href="{{ post.permalink | safe }}">{{post.title}}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+      </ol>
+    </section>
+    {% endif %}
+
+    {% if page.toc | length > 0 %}
+    <section class="toc">
+      <header>
+        <span class="label">In this post</span>
+        <span class="title">Table of contents</span>
+      </header>
+      <ol>
+        {% for h1 in page.toc %}
+        <li>
+          <a href="{{ h1.permalink | safe }}">{{h1.title}}</a>
+          {% if h1.children | length > 0 %}
+          <ol>
+          {% for h2 in h1.children %}
+            <li>
+              <a href="{{ h2.permalink | safe }}">{{h2.title}}</a>
+            </li>
+          {% endfor %}
+          </ol>
+          {% endif %}
+        </li>
+        {% endfor %}
+        
+        <li>
+          <a href="#">Adipisicing Elit</a>
+            <ol>
+              <li><a href="#">Accusantium</a></li>
+            </ol>
+          </li>
+        <li><a href="#">Formatting examples</a></li>
+      </ol>
+    </section>
+    {% endif %}
+  </nav>
+  <div class="content">
+    {{ page.content | markdown | safe }}
+  </div>
+</article>
+
+<script>
+  NodeList.prototype.__proto__ = Array.prototype;
+
+  document.querySelectorAll('article .content').map(function addSidenotes(content) {
+    const footnotesConverted = content.querySelectorAll('.footnote-ref > a')
+    .map(function convertFootnoteToSidenote(ref) {
+      const footnote = document.querySelectorAll(ref.getAttribute('href'))[0];
+      if (!footnote) { return; }
+
+      ref.parentNode.insertAdjacentHTML('afterend',`<span class="sidenote">
+        <span class="sidenote-number">${ref.textContent}</span>
+        ${footnote.innerHTML}
+      </span>`);
+
+      return 1;
+    })
+    .filter((x) => !!x).length;
+
+    const linksConverted = content.querySelectorAll('a[title]')
+    .map(function convertLinkToSidenote(link) {
+      if (link.href[0] === '#') { return; }
+      if (link.matches('.sidenote a')) { return; }
+
+      const title = link.getAttribute('title');
+      const hostname = link.hostname;
+
+      link.insertAdjacentHTML('afterend', `<span class="sidenote">
+        <span class="sidenote-title">${title}</span> &ndash;
+        <a href="${link.href}">${hostname}</a>
+      </span>`);
+
+      return 1;
+    })
+    .filter((x) => !!x).length;
+
+    if (0 < (footnotesConverted + linksConverted)) {
+      console.log('yay');
+      content.classList.add('has-sidenotes');
+    }
+  });
+</script>
+{% endblock main %}

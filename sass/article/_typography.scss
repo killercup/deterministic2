@@ -1,0 +1,103 @@
+article {
+  @include serif;
+  font-size: 1rem;
+  line-height: $article-vertical-rhythm;
+  color: #222;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  p,
+  ul,
+  ol,
+  pre,
+  blockquote {
+    margin-bottom: 1/2 * $article-vertical-rhythm * 1rem;
+  }
+
+  ul,
+  ol {
+    ul,
+    ol {
+      margin-left: 1rem;
+      margin-bottom: 0;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @include slab;
+    font-weight: bold;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    line-height: 2 * $article-vertical-rhythm * 1rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    line-height: 2 * $article-vertical-rhythm * 1rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    line-height: 2 * $article-vertical-rhythm * 1rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    line-height: $article-vertical-rhythm * 1rem;
+  }
+
+  header {
+    h1 {
+      margin-bottom: 0.4rem;
+    }
+
+    @include below-wide {
+      padding: 1rem;
+
+      p {
+        max-width: 32em;
+      }
+    }
+
+    .meta {
+      @include sans;
+    }
+  }
+
+  .content {
+    @include below-wide {
+      padding: 1rem;
+    }
+  }
+
+  blockquote {
+    border-left: 5px solid #eee;
+    margin: 0.2em;
+    padding: 0 1em;
+
+    footer {
+      margin-left: 1em;
+      color: #444;
+    }
+  }
+
+  // some good typography choices
+  .footnote-ref {
+    @include sans;
+    // disable onum (Oldstyle Figures)
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0,
+      "onum" 0, "lnum" 0, "dlig" 0, "sups" 0;
+    display: inline-block;
+    position: relative;
+    margin-top: -0.2em;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}

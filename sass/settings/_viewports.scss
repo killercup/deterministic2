@@ -1,0 +1,26 @@
+$size-threshold-narrow: 30rem;
+$size-threshold-wide: 80rem;
+
+@mixin narrow {
+  @media screen and (max-width: $size-threshold-narrow - 0.01rem) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media screen and (min-width: $size-threshold-narrow) and (max-width: $size-threshold-wide - 0.01rem) {
+    @content;
+  }
+}
+
+@mixin wide {
+  @media screen and (min-width: $size-threshold-wide) {
+    @content;
+  }
+}
+
+@mixin below-wide {
+  @media screen and (max-width: $size-threshold-wide - 0.01rem) {
+    @content;
+  }
+}

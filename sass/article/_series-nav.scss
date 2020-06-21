@@ -1,0 +1,47 @@
+nav.series {
+  @include sans;
+  display: flex;
+
+  > a,
+  > span {
+    display: block;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 0.4em;
+    width: 50%;
+    color: #000;
+
+    &.is-latest {
+      border-color: #eee;
+    }
+  }
+
+  > a {
+    text-decoration: none;
+
+    &:hover {
+      background-color: #f9f9f9;
+      border-color: #ccc;
+    }
+  }
+
+  .pre {
+    margin-right: 0.2em;
+  }
+
+  .next {
+    margin-left: 0.2em;
+  }
+
+  .label {
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.8em;
+  }
+
+  .is-latest {
+    .title {
+      font-style: italic;
+    }
+  }
+}

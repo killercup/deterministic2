@@ -1,0 +1,103 @@
+.sidenote {
+  // First, disable all this stuff on small devices
+  display: none;
+
+  padding-bottom: $sidenote-spacing;
+
+  @include sans;
+  font-size: $footnote-font-size;
+  line-height: $footnote-line-height;
+
+  color: $sidenote-color;
+
+  .footnote-backref {
+    display: none;
+  }
+
+  .sidenote-title {
+    &:before {
+      $rarr: "\2192";
+      $nbsp: "\00a0";
+      content: "#{$rarr}";
+      margin-right: $sidenote-spacing;
+      font-weight: bold;
+    }
+  }
+
+  .sidenote-number {
+    margin-right: $sidenote-spacing;
+    display: inline-block;
+    float: left;
+    font-weight: 700;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    & + p {
+      margin-top: $sidenote-spacing / 2;
+    }
+  }
+}
+
+.content.has-sidenotes {
+  a,
+  .footnote-ref {
+    &:hover + .sidenote {
+      .sidenote-title:before,
+      .sidenote-number {
+        background-color: $color-mark;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $article-with-sidenotes-with) {
+  $article-width: 70%;
+  $gutter: 5%;
+
+  /**
+   * Layout:
+   *
+   * | ------------------------------------ | | ---------------- |
+   * | lorem ipsum dolor .................. | | side note ...... |
+   * | ------------------------------------ | | ---------------- |
+   *
+   * based on the sizes:
+   *
+   * | ----- $article-width --------------- | | - $side-width -- |
+   *                               $gutter --^
+   *
+   * where `$side` and $gutter are in percent relative to `$article-width`, but
+   * only `$article-width` and `$gutter` are given.
+   */
+  $side-width: ((100% - $article-width) * 100% / $article-width);
+
+  .content.has-sidenotes {
+    max-width: $article-with-sidenotes-with;
+    @include clearfix();
+
+    > *:not(.sidenote) {
+      width: $article-width;
+      box-sizing: border-box;
+    }
+
+    .sidenote {
+      display: block;
+      float: right;
+      clear: right;
+
+      margin-right: -1 * $side-width;
+      width: $side-width - $gutter;
+
+      position: relative;
+      top: 1rem - $footnote-font-size;
+    }
+
+    .footnotes,
+    .footnotes-sep {
+      display: none;
+    }
+  }
+}

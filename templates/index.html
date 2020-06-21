@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+
+{% block body_class %}page-index{% endblock body_class %}
+
+{% block main %}
+<main>
+  <header class="is-index">
+    <h1 class="site-title"><a href="{{ config.base_url | safe }}">{{ config.title }}</a></h1>
+    <p class="site-tagline">{{ config.description }}</p>
+  </header>
+  
+  <ol class="posts">
+  {% set blog = get_section(path="blog/_index.md") %}
+  {% for page in blog.pages %}
+    <li class="post">
+      <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
+    </li>
+  {% endfor %}
+  </ol>
+</main>
+{% endblock main %}
