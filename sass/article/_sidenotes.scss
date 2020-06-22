@@ -53,7 +53,7 @@
   }
 }
 
-@media screen and (min-width: $article-with-sidenotes-with) {
+@include sidenotes-visible {
   $article-width: 70%;
   $gutter: 5%;
 
@@ -75,11 +75,12 @@
   $side-width: ((100% - $article-width) * 100% / $article-width);
 
   .content.has-sidenotes {
-    max-width: $article-with-sidenotes-with;
+    max-width: $size-threshold-sidenotes;
     @include clearfix();
 
     > *:not(.sidenote) {
       width: $article-width;
+      max-width: $article-content-width;
       box-sizing: border-box;
     }
 

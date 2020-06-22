@@ -1,17 +1,28 @@
 article {
   @include serif;
   font-size: 1rem;
-  line-height: $article-vertical-rhythm;
+  line-height: r(1);
   color: #222;
   margin-top: 1rem;
   margin-bottom: 1rem;
+
+  &.debug {
+    background: linear-gradient(
+      to bottom,
+      rgb(216, 233, 252),
+      rgb(216, 233, 252) 50%,
+      rgb(147, 198, 255) 50%,
+      rgb(147, 198, 255)
+    );
+    background-size: 100% r(1);
+  }
 
   p,
   ul,
   ol,
   pre,
   blockquote {
-    margin-bottom: 1/2 * $article-vertical-rhythm * 1rem;
+    margin-bottom: r(1/2);
   }
 
   ul,
@@ -33,37 +44,42 @@ article {
 
   h1 {
     font-size: 1.8rem;
-    line-height: 2 * $article-vertical-rhythm * 1rem;
+    line-height: r(2);
   }
 
   h2 {
     font-size: 1.4rem;
-    line-height: 2 * $article-vertical-rhythm * 1rem;
+    line-height: r(3/2);
+    padding-top: r(1/2);
   }
 
   h3 {
     font-size: 1.2rem;
-    line-height: 2 * $article-vertical-rhythm * 1rem;
+    line-height: r(3/2);
+    padding-top: r(1/2);
   }
 
-  h3 {
+  h4 {
     font-size: 1rem;
-    line-height: $article-vertical-rhythm * 1rem;
+    line-height: r(1);
+    padding-top: r(1/2);
   }
 
   pre,
   code {
     @include monospace;
+  }
+
+  p code,
+  pre {
     font-size: 0.85em;
   }
 
-  header {
-    h1 {
-      margin-bottom: 0.4rem;
-    }
+  > header {
+    margin-bottom: r(1);
 
     @include below-wide {
-      padding: 1rem;
+      padding: r(1/2) 1rem;
 
       p {
         max-width: 32em;
@@ -72,18 +88,19 @@ article {
 
     .meta {
       @include sans;
+      margin-bottom: 0;
     }
   }
 
-  .content {
+  > .content {
     @include below-wide {
-      padding: 1rem;
+      padding: r(1/2);
     }
   }
 
   blockquote {
     border-left: 5px solid #eee;
-    margin: 0.2em;
+    margin: r(1/2) 0;
     padding: 0 1em;
 
     footer {
@@ -93,7 +110,7 @@ article {
   }
 
   pre {
-    padding: 0.2rem;
+    padding: r(1/4);
   }
 
   // some good typography choices

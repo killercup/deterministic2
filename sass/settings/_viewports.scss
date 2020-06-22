@@ -1,5 +1,6 @@
 $size-threshold-narrow: 30rem;
 $size-threshold-wide: 80rem;
+$size-threshold-sidenotes: 60rem;
 
 @mixin narrow {
   @media screen and (max-width: $size-threshold-narrow - 0.01rem) {
@@ -9,6 +10,12 @@ $size-threshold-wide: 80rem;
 
 @mixin medium {
   @media screen and (min-width: $size-threshold-narrow) and (max-width: $size-threshold-wide - 0.01rem) {
+    @content;
+  }
+}
+
+@mixin sidenotes-visible {
+  @media screen and (min-width: $size-threshold-sidenotes) {
     @content;
   }
 }

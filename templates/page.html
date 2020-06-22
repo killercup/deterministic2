@@ -3,7 +3,7 @@
 {% block body_class %}page-post{% endblock body_class %}
 
 {% block main %}
-<article>
+<article class="">
   <header>
     <h1>{{ page.title }}</h1>
     {% if page.abstract %}
@@ -109,7 +109,6 @@
     .filter((x) => !!x).length;
 
     if (0 < (footnotesConverted + linksConverted)) {
-      console.log('yay');
       content.classList.add('has-sidenotes');
     }
   });
