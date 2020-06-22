@@ -1,42 +1,61 @@
 {% set data = load_data(path=data_path) %}
 {% for entry in data.entries %}
-{%- if entry._incomplete -%}{% continue %}{%- endif -%}
+{% if entry._incomplete %}{% continue %}{% endif %}
 {% if entry.type == 'book' or entry.type == 'post' %}
 
-## "[{{entry.title}}]({{entry.url}})" by {{entry.author}}
+<h2><a href="{{entry.url}}">"{{entry.title}}"</a> by {{entry.author}}</h2>
 
-({% if entry.pages %}~{{entry.pages}} pages; {% endif %}
-[archived](https://web.archive.org/web/{{entry.archive}}/{{entry.url}}))
+<p>
+  ({% if entry.pages %}~{{entry.pages}} pages; {% endif %}
+  <a href="https://web.archive.org/web/{{entry.archive}}/{{entry.url}}">archived</a>)
+</p>
 
 {% if entry.summary %}
-{{ entry.summary }}
+{{entry.summary | markdown | safe}}
 {% endif %}
 
 {% if entry.niches %}
-Niches: {{entry.niches | join(sep="; ") }}
+<p>
+  Niches: {{entry.niches | join(sep="; ") }}
+</p>
 {% endif %}
 
 {% if entry.updated %}
-Last update I saw: {{ entry.updated | date(format="%Y-%m-%d") }}
+<p>
+  Last update I saw: {{ entry.updated | date(format="%Y-%m-%d") }}
+</p>
 {% endif %}
 
 {% elif entry.type == 'series' %}
 
-## "{{entry.title}}" by {{entry.author}}
+<h2>"{{entry.title}}" by {{entry.author}}</h2>
 
 {% if entry.summary %}
-{{entry.summary}}
+{{entry.summary | markdown | safe}}
 {% endif -%}
 
-{% if entry.niches %}Niches: {{entry.niches | join(sep="; ") }}{% endif %}
+{% if entry.niches %}
+<p>Niches: {{entry.niches | join(sep="; ") }}</p>
+{% endif %}
 
-{% if entry.updated %}Last update I saw: {{ entry.updated | date(format="%Y-%m-%d") }}{% endif %}
+{% if entry.updated %}
+<p>Last update I saw: {{ entry.updated | date(format="%Y-%m-%d") }}</p>
+{% endif %}
 
+{% if entry.parts | length > 0 %}
+<ol class="series-parts">
 {% for part in entry.parts %}
-1. [{{part.title}}]({{part.url}}) ([archived](https://web.archive.org/web/{{part.archive}}/{{part.url}})){% if part.summary %}
-
-    {{part.summary}}{% endif %}
+  <li>
+    {% if part.summary %}<p>{% endif -%}
+    <a href="{{part.url}}">{{part.title}}</a>
+    (<a href="https://web.archive.org/web/{{part.archive}}/{{part.url}}">archived</a>)
+    {% if part.summary %}</p>{% endif -%}
+    
+    {% if part.summary %}{{part.summary | markdown | safe}}{% endif -%}
+  </li>
 {% endfor %}
+</ol>
+{% endif %}
 
 {% else %}
 <!-- Pascal screwed up. There is no way to handle type `{{entry.type}}` -->
