@@ -1,6 +1,7 @@
 # The URL the site will be built for
 base_url = "https://deterministic.space/"
 title = "Pascal Hertleif"
+description = "Lorem ipsum dolor sit amet, consectet et alique sit amet."
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true

@@ -12,8 +12,15 @@
   <ol class="posts">
   {% set blog = get_section(path="blog/_index.md") %}
   {% for page in blog.pages %}
-    <li class="post">
-      <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
+  {% set style = page.taxonomies.style | first %}
+    <li class="post is-{{style}}">
+      <a href="{{ page.permalink | safe }}">
+        <span class="label label-style">{{style}}</span>
+        <span class="title">{{ page.title }}</span>
+        <time class="published-at" datetime="{{ page.date | date(format="%+") }}">
+          {{ page.date | date(format="%Y-%m-%d") }}
+        </time>
+      </a>
     </li>
   {% endfor %}
   </ol>
